@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Generate PR with AI
-        uses: knnarro/ai-pr-generator@v1
+        uses: knnarro/do-not-write-pr@v1.0.0
         with:
           base_branch: main
           language: en
