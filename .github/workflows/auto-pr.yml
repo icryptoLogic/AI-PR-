@@ -1,0 +1,25 @@
+name: Auto PR Generator
+
+on:
+  push:
+    branches:
+      - feature/**
+      - fix/**
+      # Add your branch patterns as needed
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Generate PR with AI
+        uses: knnarro/ai-pr-generator@v1
+        with:
+          base_branch: main  # Target branch (main, develop, etc.)
+          language: en       # Optional, defaults to English
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
