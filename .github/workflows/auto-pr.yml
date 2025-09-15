@@ -2,10 +2,12 @@ name: Auto PR Generator
 
 on:
   push:
-    branches:
-      - feature/**
-      - fix/**
-      # Add your branch patterns as needed
+    branches-ignore:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   create-pr:
@@ -14,12 +16,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Generate PR with AI
         uses: knnarro/ai-pr-generator@v1
         with:
-          base_branch: main  # Target branch (main, develop, etc.)
-          language: en       # Optional, defaults to English
+          base_branch: main
+          language: en
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
